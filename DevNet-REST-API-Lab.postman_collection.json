@@ -1,0 +1,250 @@
+{
+	"info": {
+		"_postman_id": "81afb1bc-879b-4fc6-9b19-063e71844331",
+		"name": "DevNet-REST-API-Lab",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Login ACI",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"aaaUser\" : {\n    \"attributes\" : {\n      \"name\" : \"admin\",\n      \"pwd\" : \"C1sco12345\"\n    }\n  }\n}"
+				},
+				"url": {
+					"raw": "https://198.18.133.200/api/aaaLogin.json",
+					"protocol": "https",
+					"host": [
+						"198",
+						"18",
+						"133",
+						"200"
+					],
+					"path": [
+						"api",
+						"aaaLogin.json"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add-VRF",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"fvTenant\": {\n        \"attributes\": {\n            \"dn\": \"uni/tn-common\",\n            \"status\": \"modified\"\n        },\n        \"children\": [{\n            \"fvBD\": {\n                \"attributes\": {\n                    \"dn\": \"uni/tn-common/BD-CAMERA01-VRF\",\n                    \"name\": \"CAMERA01-VRF\",\n                    \"rn\": \"BD-CAMERA01-VRF\",\n                    \"status\": \"created,modified\"\n                },\n                \"children\": [{\n                    \"fvRsCtx\": {\n                        \"attributes\": {\n                            \"tnFvCtxName\": \"CAMERA-VRF01\",\n                            \"status\": \"created,modified\"\n                        },\n                        \"children\": []\n                    }\n                }]\n            }\n        }, {\n            \"fvCtx\": {\n                \"attributes\": {\n                    \"dn\": \"uni/tn-common/ctx-CAMERA-VRF01\",\n                    \"name\": \"CAMERA-VRF01\",\n                    \"rn\": \"ctx-CAMERA-VRF01\",\n                    \"status\": \"created,modified\"\n                },\n                \"children\": []\n            }\n        }]\n    }\n}"
+				},
+				"url": {
+					"raw": "https://198.18.133.200/api/node/mo/uni/tn-common.json",
+					"protocol": "https",
+					"host": [
+						"198",
+						"18",
+						"133",
+						"200"
+					],
+					"path": [
+						"api",
+						"node",
+						"mo",
+						"uni",
+						"tn-common.json"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add New Network",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"fvSubnet\": {\n        \"attributes\": {\n            \"dn\": \"uni/tn-common/BD-CAMERA01-VRF/subnet-[192.168.120.254/24]\",\n            \"ip\": \"192.168.120.254/24\",\n            \"scope\": \"public,shared\",\n            \"rn\": \"subnet-[192.168.120.254/24]\",\n            \"status\": \"created\"\n        },\n        \"children\": []\n    }\n}"
+				},
+				"url": {
+					"raw": "https://198.18.133.200/api/node/mo/uni/tn-common/BD-CAMERA01-VRF/subnet-[192.168.120.254/24].json",
+					"protocol": "https",
+					"host": [
+						"198",
+						"18",
+						"133",
+						"200"
+					],
+					"path": [
+						"api",
+						"node",
+						"mo",
+						"uni",
+						"tn-common",
+						"BD-CAMERA01-VRF",
+						"subnet-[192.168.120.254",
+						"24].json"
+					]
+				},
+				"description": "Add New Network"
+			},
+			"response": []
+		},
+		{
+			"name": "Add-ApplicationPolicyGroup",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"fvAp\": {\n        \"attributes\": {\n            \"dn\": \"uni/tn-common/ap-CAMERA:APP-PROFILE01\",\n            \"name\": \"CAMERA:APP-PROFILE01\",\n            \"rn\": \"ap-CAMERA:APP-PROFILE01\",\n            \"status\": \"created\"\n        },\n        \"children\": []\n    }\n}"
+				},
+				"url": {
+					"raw": "https://198.18.133.200/api/node/mo/uni/tn-common/ap-CAMERA:APP-PROFILE01.json",
+					"protocol": "https",
+					"host": [
+						"198",
+						"18",
+						"133",
+						"200"
+					],
+					"path": [
+						"api",
+						"node",
+						"mo",
+						"uni",
+						"tn-common",
+						"ap-CAMERA:APP-PROFILE01.json"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add New EPG",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"fvAEPg\": {\n        \"attributes\": {\n            \"dn\": \"uni/tn-common/ap-CAMERA:APP-PROFILE01/epg-CAMERA:EPG01\",\n            \"name\": \"CAMERA:EPG01\",\n            \"rn\": \"epg-CAMERA:EPG01\",\n            \"status\": \"created\"\n        },\n        \"children\": [{\n            \"fvRsBd\": {\n                \"attributes\": {\n                    \"tnFvBDName\": \"CAMERA01-VRF\",\n                    \"status\": \"created,modified\"\n                },\n                \"children\": []\n            }\n        }, {\n            \"fvRsDomAtt\": {\n                \"attributes\": {\n                    \"tDn\": \"uni/phys-PHYS:CAMERA01\",\n                    \"status\": \"created\"\n                },\n                \"children\": []\n            }\n        }, {\n            \"fvRsPathAtt\": {\n                \"attributes\": {\n                    \"tDn\": \"topology/pod-1/paths-101/pathep-[eth1/2]\",\n                    \"encap\": \"vlan-1200\",\n                    \"status\": \"created\"\n                },\n                \"children\": []\n            }\n        }]\n    }\n}"
+				},
+				"url": {
+					"raw": "https://198.18.133.200/api/node/mo/uni/tn-common/ap-CAMERA:APP-PROFILE01/epg-CAMERA:EPG01.json",
+					"protocol": "https",
+					"host": [
+						"198",
+						"18",
+						"133",
+						"200"
+					],
+					"path": [
+						"api",
+						"node",
+						"mo",
+						"uni",
+						"tn-common",
+						"ap-CAMERA:APP-PROFILE01",
+						"epg-CAMERA:EPG01.json"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create contract",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "payload{\"vzBrCP\":{\"attributes\":{\"dn\":\"uni/tn-common/brc-web\",\"name\":\"web\",\"rn\":\"brc-web\",\"status\":\"created\"},\"children\":[]}}\n\n\n\n\n\n"
+				},
+				"url": {
+					"raw": "https://198.18.133.200/api/node/mo/uni/tn-common/brc-web.json",
+					"protocol": "https",
+					"host": [
+						"198",
+						"18",
+						"133",
+						"200"
+					],
+					"path": [
+						"api",
+						"node",
+						"mo",
+						"uni",
+						"tn-common",
+						"brc-web.json"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add Contract",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"fvRsCons\":{\"attributes\":{\"tnVzBrCPName\":\"web\",\"status\":\"created,modified\"},\"children\":[]}}"
+				},
+				"url": {
+					"raw": "https://198.18.133.200/api/node/mo/uni/tn-common/ap-CAMERA:APP-PROFILE01/epg-CAMERA:EPG01.json",
+					"protocol": "https",
+					"host": [
+						"198",
+						"18",
+						"133",
+						"200"
+					],
+					"path": [
+						"api",
+						"node",
+						"mo",
+						"uni",
+						"tn-common",
+						"ap-CAMERA:APP-PROFILE01",
+						"epg-CAMERA:EPG01.json"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Associate Contract",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"fvRsConsIf\": {\n        \"attributes\": {\n            \"tnVzCPIfName\": \"web\",\n            \"status\": \"created,modified\"\n        },\n        \"children\": []\n    }\n}"
+				},
+				"url": {
+					"raw": "https://198.18.133.200/api/node/mo/uni/tn-common/ap-CAMERA:APP-PROFILE01/epg-CAMERA:EPG01.json",
+					"protocol": "https",
+					"host": [
+						"198",
+						"18",
+						"133",
+						"200"
+					],
+					"path": [
+						"api",
+						"node",
+						"mo",
+						"uni",
+						"tn-common",
+						"ap-CAMERA:APP-PROFILE01",
+						"epg-CAMERA:EPG01.json"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
